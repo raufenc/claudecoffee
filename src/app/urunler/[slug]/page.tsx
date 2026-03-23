@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import AddToCartButton from '@/components/cart/AddToCartButton';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -131,6 +132,53 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </div>
           </div>
         </div>
+        {/* Related Products */}
+        <RelatedProducts categoryId={product.categoryId} currentId={product.id} />
+      </div>
+    </div>
+  );
+}
+
+async function RelatedProducts({ categoryId, currentId }: { categoryId: string | null; currentId: string }) {
+  const products = await prisma.product.findMany({
+    where: {
+      categoryId: categoryId ?? undefined,
+      id: { not: currentId },
+      isActive: true,
+    },
+    take: 3,
+    orderBy: { salesCount: 'desc' },
+  });
+
+  if (products.length === 0) return null;
+
+  return (
+    <div style={{ marginTop: '4rem' }}>
+      <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-primary)', marginBottom: '1.5rem' }}>
+        Bu Ürünü Alanlar Şunları da Aldı
+      </h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
+        {products.map((p) => {
+          const img = JSON.parse(p.images)[0];
+          return (
+            <Link key={p.id} href={`/urunler/${p.slug}`} style={{ textDecoration: 'none', background: 'var(--color-bg-white)', borderRadius: '12px', border: '1px solid var(--color-border-light)', overflow: 'hidden', transition: 'transform 0.2s, box-shadow 0.2s' }}>
+              <div style={{ aspectRatio: '4/3', background: 'var(--color-surface)', overflow: 'hidden' }}>
+                {img && <img src={img} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />}
+              </div>
+              <div style={{ padding: '1rem' }}>
+                <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-primary)', marginBottom: '0.25rem' }}>{p.name}</h3>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-primary)' }}>
+                  ₺{(p.salePrice ?? p.price).toLocaleString('tr-TR')}
+                </span>
+                {p.salePrice && (
+                  <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', textDecoration: 'line-through', marginLeft: '0.5rem' }}>
+                    ₺{p.price.toLocaleString('tr-TR')}
+                  </span>
+                )}
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

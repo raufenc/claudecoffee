@@ -3,11 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useCartStore } from '@/store/cartStore';
+import { useToast } from '@/components/ui/Toast';
 import styles from './sepet.module.css';
 
 export default function SepetPage() {
   const [mounted, setMounted] = useState(false);
   const { items, updateQuantity, removeItem, getSummary } = useCartStore();
+  const { showToast } = useToast();
   const [coupon, setCoupon] = useState('');
   const [discount, setDiscount] = useState(0);
 
@@ -29,14 +31,14 @@ export default function SepetPage() {
         const data = await res.json();
         const calculatedDiscount = (subtotal * data.discountPercent) / 100;
         setDiscount(calculatedDiscount);
-        alert(`Kupon uygulandı! %${data.discountPercent} indirim kazandınız.`);
+        showToast(`Kupon uygulandı! %${data.discountPercent} indirim kazandınız.`, 'success');
       } else {
         const data = await res.json();
-        alert(data.message || 'Geçersiz veya süresi dolmuş kupon kodu.');
+        showToast(data.message || 'Geçersiz veya süresi dolmuş kupon kodu.', 'error');
         setDiscount(0);
       }
     } catch {
-      alert('Kupon kontrol edilirken bir hata oluştu.');
+      showToast('Kupon kontrol edilirken bir hata oluştu.', 'error');
       setDiscount(0);
     }
   };
@@ -61,7 +63,28 @@ export default function SepetPage() {
   return (
     <div className={styles.page}>
       <div className="container">
-        <h1 className="section-title" style={{ marginBottom: '2rem' }}>Alışveriş Sepeti</h1>
+        <h1 className="section-title" style={{ marginBottom: '1rem' }}>Alışveriş Sepeti</h1>
+
+        {/* Free Shipping Progress Bar */}
+        {subtotal > 0 && subtotal < 250 && (
+          <div style={{ background: 'linear-gradient(135deg, #fffbeb, #fef3c7)', border: '1px solid #fcd34d', borderRadius: '12px', padding: '1rem 1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <span style={{ fontSize: '1.5rem' }}>🚚</span>
+            <div style={{ flex: 1 }}>
+              <p style={{ fontSize: '0.875rem', fontWeight: 600, color: '#92400e', marginBottom: '0.5rem' }}>
+                Ücretsiz kargoya <strong>₺{(250 - subtotal).toLocaleString('tr-TR')}</strong> kaldı!
+              </p>
+              <div style={{ background: '#fde68a', borderRadius: '100px', height: '8px', overflow: 'hidden' }}>
+                <div style={{ background: 'linear-gradient(90deg, #f59e0b, #d97706)', height: '100%', borderRadius: '100px', width: `${Math.min((subtotal / 250) * 100, 100)}%`, transition: 'width 0.5s ease' }} />
+              </div>
+            </div>
+          </div>
+        )}
+        {subtotal >= 250 && (
+          <div style={{ background: 'linear-gradient(135deg, #ecfdf5, #d1fae5)', border: '1px solid #6ee7b7', borderRadius: '12px', padding: '1rem 1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <span style={{ fontSize: '1.5rem' }}>🎉</span>
+            <p style={{ fontSize: '0.875rem', fontWeight: 600, color: '#065f46' }}>Tebrikler! Ücretsiz kargo kazandınız!</p>
+          </div>
+        )}
 
         <div className={styles.grid}>
           {/* Cart Items */}

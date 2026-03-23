@@ -1,6 +1,7 @@
 'use client';
 
 import { useCartStore } from '@/store/cartStore';
+import { useToast } from '@/components/ui/Toast';
 
 interface AddToCartProps {
   product: {
@@ -13,6 +14,7 @@ interface AddToCartProps {
 
 export default function AddToCartButton({ product }: AddToCartProps) {
   const { addItem } = useCartStore();
+  const { showToast } = useToast();
 
   const handleAdd = () => {
     addItem({
@@ -25,7 +27,7 @@ export default function AddToCartButton({ product }: AddToCartProps) {
       variant: 'Standart',
       quantity: 1
     });
-    alert('Sepete eklendi!');
+    showToast(`${product.name} sepete eklendi!`, 'success');
   };
 
   return (

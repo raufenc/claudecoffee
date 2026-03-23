@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import AuthProvider from "@/components/providers/AuthProvider";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import { ToastProvider } from "@/components/ui/Toast";
 
 export const metadata: Metadata = {
   title: {
@@ -29,10 +30,12 @@ export default function RootLayout({
     <html lang="tr">
       <body>
         <AuthProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <WhatsAppButton />
+          <ToastProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <WhatsAppButton />
+          </ToastProvider>
         </AuthProvider>
       </body>
     </html>

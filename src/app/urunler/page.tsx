@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import type { Metadata } from 'next';
 import ProductsClient from './ProductsClient';
 import { prisma } from '@/lib/prisma';
