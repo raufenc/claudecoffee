@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
+    "postinstall": "prisma generate",
     "start": "next start",
     "lint": "eslint"
   },
@@ -23,7 +24,6 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^5.15.9",
     "@types/bcrypt": "^6.0.0",
     "@types/node": "^20",
     "@types/nodemailer": "^7.0.11",
@@ -31,7 +31,6 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
-    "netlify-cli": "^24.4.1",
     "prisma": "^5.22.0",
     "typescript": "^5"
   }
