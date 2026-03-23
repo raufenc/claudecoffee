@@ -72,12 +72,13 @@ export default function AdminKuponlarPage() {
                 <th style={{ padding: '1rem', color: '#64748b', fontSize: '0.875rem' }}>İndirim Tutarı</th>
                 <th style={{ padding: '1rem', color: '#64748b', fontSize: '0.875rem' }}>Durum</th>
                 <th style={{ padding: '1rem', color: '#64748b', fontSize: '0.875rem' }}>Eklendiği Tarih</th>
+                <th style={{ padding: '1rem', color: '#64748b', fontSize: '0.875rem' }}>İşlemler</th>
               </tr>
             </thead>
             <tbody>
               {coupons.length === 0 ? (
                 <tr>
-                  <td colSpan={4} style={{ padding: '2rem', textAlign: 'center', color: '#94a3b8' }}>Henüz kayıtlı indirim kodu yok.</td>
+                  <td colSpan={5} style={{ padding: '2rem', textAlign: 'center', color: '#94a3b8' }}>Henüz kayıtlı indirim kodu yok.</td>
                 </tr>
               ) : (
                 coupons.map((c: any) => (
@@ -90,6 +91,17 @@ export default function AdminKuponlarPage() {
                       </span>
                     </td>
                     <td style={{ padding: '1rem', color: '#475569' }}>{new Date(c.createdAt).toLocaleDateString('tr-TR')}</td>
+                    <td style={{ padding: '1rem' }}>
+                      <button
+                        onClick={async () => {
+                          const res = await fetch('/api/coupons', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: c.id, isActive: !c.isActive }) });
+                          if (res.ok) fetchCoupons();
+                        }}
+                        style={{ color: c.isActive ? '#ef4444' : '#16a34a', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
+                      >
+                        {c.isActive ? 'Pasife Al' : 'Aktife Al'}
+                      </button>
+                    </td>
                   </tr>
                 ))
               )}

@@ -46,7 +46,7 @@ export async function sendOrderEmail(toEmail: string, orderData: any) {
 
     const info = await transporter.sendMail({
       from: `"Claude Coffee" <${process.env.SMTP_USER}>`,
-      to: 'furkacetinkaya95@gmail.com', // User requested all orders fall here
+      to: toEmail,
       subject: `Yeni Sipariş: #${orderData.orderNo}`,
       html: html,
     });

@@ -38,12 +38,21 @@ export default function ProductCard({ product }: { product: Product }) {
       {/* Image */}
       <div className={styles.imageWrap}>
         <div className={styles.imagePlaceholder}>
-          <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-            <circle cx="30" cy="30" r="30" fill="rgba(200,151,58,0.1)"/>
-            <path d="M20 38c2.5-6 7.5-10 10-10s7.5 4 10 10" stroke="#c8973a" strokeWidth="2.5" strokeLinecap="round"/>
-            <path d="M30 28V18" stroke="#c8973a" strokeWidth="2.5" strokeLinecap="round"/>
-            <circle cx="30" cy="16" r="3" fill="#c8973a"/>
-          </svg>
+          {product.image ? (
+            <img
+              src={product.image}
+              alt={product.name}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '12px 12px 0 0' }}
+              loading="lazy"
+            />
+          ) : (
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+              <circle cx="30" cy="30" r="30" fill="rgba(200,151,58,0.1)"/>
+              <path d="M20 38c2.5-6 7.5-10 10-10s7.5 4 10 10" stroke="#c8973a" strokeWidth="2.5" strokeLinecap="round"/>
+              <path d="M30 28V18" stroke="#c8973a" strokeWidth="2.5" strokeLinecap="round"/>
+              <circle cx="30" cy="16" r="3" fill="#c8973a"/>
+            </svg>
+          )}
         </div>
         {product.badge && (
           <span className={`${styles.badge} ${product.badge === 'Yeni' ? styles.badgeNew : styles.badgeSale}`}>

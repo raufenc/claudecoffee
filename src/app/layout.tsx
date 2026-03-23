@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "tr_TR",
-    url: "https://claudecoffee.com",
+    url: "https://claudecoffee.vercel.app",
     siteName: "Claude Coffee",
   },
 };

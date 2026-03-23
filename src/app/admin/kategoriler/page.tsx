@@ -91,7 +91,7 @@ export default function AdminKategorilerPage() {
                       <td style={{ padding: '1rem', color: '#0f172a', fontWeight: 600 }}>{c.name}</td>
                       <td style={{ padding: '1rem', color: '#64748b', fontSize: '0.875rem' }}>{c.slug}</td>
                       <td style={{ padding: '1rem' }}>
-                         <button style={{ color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem' }}>Sil</button>
+                         <button onClick={async () => { if (!confirm(`"${c.name}" grubunu silmek istediğinize emin misiniz?`)) return; const res = await fetch('/api/categories', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: c.id }) }); if (res.ok) fetchCats(); else alert('Silinemedi.'); }} style={{ color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem' }}>Sil</button>
                       </td>
                     </tr>
                   ))

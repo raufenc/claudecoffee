@@ -26,6 +26,20 @@ export async function GET(req: Request) {
   return NextResponse.json(coupons);
 }
 
+export async function PATCH(req: Request) {
+  const session = await getServerSession(authOptions);
+  if (!session || (session.user as any)?.role !== 'ADMIN') {
+    return NextResponse.json({ message: 'Yetkisiz' }, { status: 403 });
+  }
+  try {
+    const { id, isActive } = await req.json();
+    const updated = await prisma.coupon.update({ where: { id }, data: { isActive } });
+    return NextResponse.json(updated);
+  } catch {
+    return NextResponse.json({ message: 'Kupon güncellenemedi' }, { status: 500 });
+  }
+}
+
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session || (session.user as any)?.role !== 'ADMIN') {

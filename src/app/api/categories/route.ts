@@ -10,6 +10,21 @@ export async function GET() {
   return NextResponse.json(categories);
 }
 
+export async function DELETE(req: Request) {
+  const session = await getServerSession(authOptions);
+  if (!session || (session.user as any)?.role !== 'ADMIN') {
+    return NextResponse.json({ message: 'Yetkisiz erişim.' }, { status: 403 });
+  }
+  try {
+    const { id } = await req.json();
+    await prisma.product.updateMany({ where: { categoryId: id }, data: { categoryId: null } });
+    await prisma.category.delete({ where: { id } });
+    return NextResponse.json({ success: true });
+  } catch {
+    return NextResponse.json({ message: 'Kategori silinemedi.' }, { status: 500 });
+  }
+}
+
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
   
