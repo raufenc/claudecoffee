@@ -1,0 +1,122 @@
+.adminContainer {
+  display: flex;
+  height: 100vh;
+  background-color: #f8fafc; /* light gray bg */
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--color-bg);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  padding: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.brand a { color: #fff; text-decoration: none; }
+.accent { color: var(--color-primary); }
+
+.nav {
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.navItem {
+  padding: 0.75rem 1.5rem;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9375rem;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.navItem:hover {
+  background-color: rgba(255,255,255,0.05);
+  color: #fff;
+  border-left-color: var(--color-primary);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  height: 64px;
+  background-color: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+.headerTitle { font-weight: 600; color: #1e293b; }
+
+.headerUser {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.badge {
+  background: var(--color-primary-light);
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.statCard {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.statTitle { font-size: 0.875rem; color: #64748b; font-weight: 500; }
+.statValue { font-size: 2rem; font-weight: 700; color: #0f172a; margin-top: 0.5rem; }
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s;
+}
+
+.checkboxLabel:hover {
+  border-color: var(--color-primary);
+  background: #fff;
+}

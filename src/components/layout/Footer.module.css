@@ -1,0 +1,160 @@
+.footer {
+  background: var(--color-primary-dark);
+  color: rgba(255,255,255,0.75);
+  margin-top: 6rem;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1.4fr 1.6fr;
+  gap: 4rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+}
+
+.logoText {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.logoAccent {
+  color: var(--color-accent);
+}
+
+.tagline {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.55);
+  max-width: 320px;
+}
+
+.social {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.socialLink:hover {
+  background: var(--color-accent);
+  color: var(--color-primary-dark);
+}
+
+/* Links */
+.links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.linkGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.linkTitle {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.25rem;
+}
+
+.link {
+  font-size: 0.9375rem;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.link:hover {
+  color: var(--color-accent);
+}
+
+/* Bottom */
+.bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.bottomInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  flex-wrap: wrap;
+}
+
+.copyright {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.legalLinks {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.legalLink {
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.legalLink:hover {
+  color: rgba(255,255,255,0.7);
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .legalLinks {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .bottomInner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

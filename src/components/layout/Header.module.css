@@ -1,0 +1,234 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 0;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.header.scrolled {
+  background: rgba(26, 39, 68, 0.97);
+  backdrop-filter: blur(12px);
+  padding: 0.75rem 0;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.18);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+}
+
+.logoText {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.logoAccent {
+  color: var(--color-accent);
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.navLink {
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.navLink:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.iconBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  color: rgba(255,255,255,0.85);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.iconBtn:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+}
+
+.cartBadge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  background: var(--color-accent);
+  color: var(--color-primary-dark);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ctaBtn {
+  margin-left: 0.25rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast);
+}
+
+.hamburger:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.bar {
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all var(--transition-base);
+  display: block;
+}
+
+.bar.open:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.bar.open:nth-child(2) {
+  opacity: 0;
+}
+.bar.open:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile overlay */
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1100;
+  backdrop-filter: blur(4px);
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(360px, 90vw);
+  height: 100vh;
+  background: var(--color-primary);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.mobileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.closeBtn {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.25rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.closeBtn:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.mobileNavLink {
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.mobileNavLink:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+}
+
+.mobileActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .nav { display: none; }
+  .ctaBtn { display: none; }
+  .hamburger { display: flex; }
+}
